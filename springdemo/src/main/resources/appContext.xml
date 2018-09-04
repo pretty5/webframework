@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置一个bean  要被spring管理的对象-->
+    <!--class表示 bean所对应的类-->
+    <bean id="tom" class="com.ioc.xml.Person">
+        <!-- 为属性赋值 -->
+        <property name="name" value="tom"></property>
+        <property name="age" value="12"></property>
+    </bean>
+
+    <bean id="jack" class="com.ioc.xml.Person">
+        <!-- 为属性赋值 -->
+        <property name="name" value="jack"></property>
+        <property name="age" value="11"></property>
+    </bean>
+<!--
+    对于引用数据类型的注入需要以下几步：
+    1.定义属性
+    2.定义set，get方法
+    3.在配置文件中通过ref来注入
+
+-->
+    <bean id="rose" class="com.ioc.xml.Person">
+        <!--通过构造方法注入-->
+        <constructor-arg name="name" value="rose"></constructor-arg>
+        <constructor-arg name="age" value="18"></constructor-arg>
+        <!--对于引用数据类型，使用ref来注入，-->
+        <!--对于基本数据类型或字符串，通过value注入-->
+        <property name="friend" ref="jack"></property>
+    </bean>
+
+
+
+</beans>

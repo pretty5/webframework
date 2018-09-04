@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <context:component-scan base-package="com.aop"></context:component-scan>
+    <!--自动生成代理类-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+<!--
+spring aop的步骤
+1.定义切面类，以及切面方法
+2.在配置文件中配置
+    a.切点（某个类的某些需要被增强的方法）
+    b.切面 通过切面向切点关联。pointcut-ref
+
+
+
+-->
+    <bean id="aopServiceAspect" class="com.aop.AopServiceAspect"></bean>
+    <!--表示当任意的aopService方法执行前，都会执行aopServiceAspect的before-->
+    <aop:config>
+
+        <!--expression表示任意的AopService的方法-->
+        <aop:pointcut id="aop" expression=
+                "execution(public void com.aop.AopService.*(..))"/>
+        <!-- 切面 : ref 的值是 切面类的id-->
+        <aop:aspect id="aspect" ref="aopServiceAspect">
+        <!-- 前置方法 : pointcut-ref 的值是 切点的id -->
+            <aop:before method="before" pointcut-ref="aop"/>
+
+        </aop:aspect>
+
+
+    </aop:config>
+
+
+
+</beans>
