@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.GradeDao">
+    <resultMap id="student" type="com.zhiyou100.Student">
+        <id property="id" column="student_id"></id>
+        <result property="name"  column="student_name"></result>
+    </resultMap>
+
+    <resultMap id="grade" type="com.zhiyou100.Grade">
+        <id property="id" column="grade_id"></id>
+        <result property="name" column="grade_name"></result>
+        <collection property="studentList" ofType="com.zhiyou100.Student" resultMap="student"></collection>
+    </resultMap>
+
+    <select id="findById" resultMap="grade">
+        select
+        l.id grade_id,
+        l.name grade_name,
+        r.id student_id,
+        r.name student_name
+         from
+         t_grade l,t_student r
+         where  l.id=r.cid and
+         l.id=#{id}
+
+    </select>
+
+
+
+</mapper>

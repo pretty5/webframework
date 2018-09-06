@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--用下划线与驼峰式命名规则的映射（如first_name => firstName-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--环境表示连接  可以配置多个-->
+    <environments default="development">
+        <environment id="development">
+            <!--transactionManager 表示事务管理器  默认使用jdbc-->
+            <transactionManager type="JDBC"/>
+            <!--POOLED 启用连接池  unpooled 不用连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/school"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+        <!--与dao层接口对应的映射（mapper）文件的位置-->
+        <mapper resource="com/zhiyou100/PersonMapper.xml"/>
+        <mapper resource="com/zhiyou100/StudentMapper.xml"/>
+        <mapper resource="com/zhiyou100/GradeMapper.xml"/>
+        <mapper resource="com/homework/RoleMapper.xml"/>
+    </mappers>
+
+</configuration>

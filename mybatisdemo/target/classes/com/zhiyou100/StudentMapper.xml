@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyou100.StudentDao">
+    
+   <!-- <resultMap id="grade" type="com.zhiyou100.Grade">
+        <id property="id" column="grade_id"></id>
+        <result property="name" column="grade_name"></result>
+    </resultMap>-->
+    <!--autoMapping 自动生成映射文件-->
+    <resultMap id="grade" type="com.zhiyou100.Grade" autoMapping="true"></resultMap>
+    
+    <resultMap id="student" type="com.zhiyou100.Student">
+        <id property="id" column="student_id"></id>
+        <result property="name" column="studnet_name" ></result>
+        <!-- association 表示关联  对应的就是数据库的外键的字段-->
+        <!--columnPrefix 在上面的id为grade的column加上前缀：grade_-->
+        <association property="grade" resultMap="grade" columnPrefix="grade_"></association>
+    </resultMap>
+    
+    <select id="findById" resultMap="student">
+        select
+        l.id student_id,
+        l.name studnet_name,
+        r.id grade_id,
+        r.name grade_name
+        from
+        t_student l,t_grade r
+        where
+        l.cid=r.id and  l.id=#{id}
+    </select>
+
+
+</mapper>
